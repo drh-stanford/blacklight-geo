@@ -7,13 +7,13 @@ module Blacklight
   module Geo
     class Engine < Rails::Engine
       # Set some default configurations
-      Blacklight::Configuration.default_values[:view].maps.type = 'bbox'
-      Blacklight::Configuration.default_values[:view].maps.bbox_field = 'place_bbox'
-      Blacklight::Configuration.default_values[:view].maps.placename_coord_field = 'placename_coords'
-      Blacklight::Configuration.default_values[:view].maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      Blacklight::Configuration.default_values[:view].maps.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-      Blacklight::Configuration.default_values[:view].maps.maxzoom = 8
-      Blacklight::Configuration.default_values[:view].maps.placename_coord_delimiter = '-|-'
+      Blacklight::Configuration.default_values[:view].geo.type = 'bbox'
+      Blacklight::Configuration.default_values[:view].geo.bbox_field = 'place_bbox'
+      Blacklight::Configuration.default_values[:view].geo.placename_coord_field = 'placename_coords'
+      Blacklight::Configuration.default_values[:view].geo.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      Blacklight::Configuration.default_values[:view].geo.mapattribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+      Blacklight::Configuration.default_values[:view].geo.maxzoom = 8
+      Blacklight::Configuration.default_values[:view].geo.placename_coord_delimiter = '-|-'
 
       # Add our helpers
       initializer 'blacklight-geo.helpers' do |app|

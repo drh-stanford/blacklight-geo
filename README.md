@@ -1,13 +1,17 @@
 # Blacklight::Geo
 
-[![Build Status](https://travis-ci.org/sul-dlss/blacklight-geo.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-geo)
-
-Provides a map view for Blacklight search results.
-
-![Screen shot](docs/map-view.png)
-![Screen shot](docs/map-sidebar.png)
+GeoBlacklight started at Stanford and its goal is to provide a
+world-class discovery platform for geospatial (GIS) holdings. It
+is an open collaborative project aiming to build off of the successes
+of the Blacklight Solr-powered discovery interface and the
+multi-institutional OpenGeoportal federated metadata sharing
+communities. We are currently in a collaborative design phase and
+we're actively looking for community input and development partners.
+More coming soon!
 
 ## Installation
+
+Install [Blacklight](https://github.com/projectblacklight/blacklight/wiki/Quickstart)
 
 Add this line to your application's Gemfile:
 
@@ -15,80 +19,50 @@ Add this line to your application's Gemfile:
 
 And then execute:
 
-    $ bundle
+    $ bundle install
 
-Or install it yourself as:
+Run blacklight-geo generator:
 
-    $ gem install blacklight-geo
+    $ rails generate blacklight_geo:install
     
-Run blacklight-geo generator
-    $ rails g blacklight_geo:install
+Edit your Solr configuration to point to a [geoblacklight-schema](http://github.com/sul-dlss/geoblacklight-schema) Solr instance:
 
-## Usage
+    $ vi config/solr.yml
 
-blacklight-geo adds a map view capability for a results set that contains geospatial coordinates (latitude/longitude).
+Edit your development parameters to include:
 
-For now, blacklight-geo requires that your Solr index include one of the following two types of fields:
+      Rails.application.config.assets.precompile += %w( blacklight_geo/home.js blacklight_geo/mapResult.js blacklight_geo/mapView.js)
+    
+Start the application:
 
-1. A `location_rpt` field that contains a bounding box for the document.  For more on `location_rpt` see [Solr help](https://cwiki.apache.org/confluence/display/solr/Spatial+Search). This field can be multivalued.
-```
-  place_bbox: 44.0318907 25.0594286 63.3333366 39.7816755
-              # minX minY maxX maxY
-```
+    $ rails server
 
-2. A field containing placenames with latitude and longitude coordinates delimited by `-|-`. The delimiter can be configured in `app/controllers/catalog_controller.rb`.  This field can be multivalued.
-```  
-  placename_coords:
-    - China-|-35.86166-|-104.195397
-    - Tibet-|-29.646923-|-91.117212
-    - India-|-20.593684-|-78.96288
-```
+## Features
 
-Note: We are looking at implementing support for additional fields.
+* Text search with scoring formula
+* Facet by institution, year, publisher, data type, access, format
+* Facet by place, subject
+* Sort by relevance, year, publisher, title, collection
+* Results list map view of bounding boxes
+* Results list view icons and snippets
+* Detail map view for WMS features
+* Detail map view feature inspection
+* Slugs
+* Blacklight bookmarks and history
+* WMS/WFS/WCS links
 
-### Configuration
+## TODO
 
-#### Required
-blacklight-geo expects you to provide:
-
-- the type of location field you are using, `placename_coord` or `bbox` (`bbox` is default)
-- a field to map the placename coordinates or bbox field
-
-#### Optional
-
-- the maxZoom [property of the map](http://leafletjs.com/reference.html#map-maxzoom)
-- a [tileLayer url](http://leafletjs.com/reference.html#tilelayer-l.tilelayer) to change the basemap
-- an [attribution string](http://leafletjs.com/reference.html#tilelayer-attribution) to describe the basemap layer
-- a custom delimiter field (used to delimit placename_coord values)
-
-All of these options can easily be configured in `CatalogController.rb` in the `config` block.
-
-```
-...
-  configure_blacklight do |config|
-    ## Default parameters to send to solr for all search-like requests. See also SolrHelper#solr_search_params
-    config.default_solr_params = {
-      :qt   => 'search',
-      :rows => 10,
-      :fl   => '*'
-    }
-
-    ## Default values
-    config.view.maps.type = "bbox" # also accepts 'placename_coord' to use the placename coordinate type
-    config.view.maps.bbox_field = "place_bbox"
-    config.view.maps.placename_coord_field = "placename_coords"
-    config.view.maps.tileurl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    config.view.maps.attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
-    config.view.maps.placename_coord_delimiter = '-|-'
-...
-
-```
-
-
-## Contributing
-
-1. Fork it ( http://github.com/<my-github-username>/blacklight-geo/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+* Spatial search
+* Spatial relevancy
+* MODS display
+* Download KML
+* Download Shapefile / GeoTIFF
+* Clip to map view for download
+* Download Metadata (for non-Stanford, MODS for Stanford)
+* Facet by language, projection, collection
+* Citation and share buttons
+* Login for persistent bookmarks and history
+* Featured datasets and articles
+* FGDC-based conversion of external OGP records
+* MODS-based conversion for Stanford records

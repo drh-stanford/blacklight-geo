@@ -6,34 +6,34 @@ describe "Map View", js: true do
     before do
       CatalogController.blacklight_config = Blacklight::Configuration.new
       CatalogController.configure_blacklight do |config|
-        config.view.maps.type = 'placename_coord'
-        config.view.maps.placename_coord_delimiter = '-|-'
+        config.view.geo.type = 'placename_coord'
+        config.view.geo.placename_coord_delimiter = '-|-'
         # These fields also need to be added for some reason for the tests to pass
         # Link in list is not being generated correctly if not passed
         config.index.title_field = 'title_display'
       end
     end
 
-    before { visit catalog_index_path :q => 'tibet', :view => 'maps' }
+    before { visit catalog_index_path :q => 'tibet', :view => 'geo' }
 
-    it "should display map elements" do
-      expect(page).to have_selector("#documents.map")
-      expect(page).to have_selector("#blacklight-map")
-      expect(page).to have_selector("#blacklight-map-sidebar")
+    it "should display geo elements" do
+      expect(page).to have_selector("#documents.geo")
+      expect(page).to have_selector("#blacklight-geo")
+      expect(page).to have_selector("#blacklight-geo-sidebar")
     end
 
     describe "data attributes" do
 
       it "maxzoom should be 8" do
-        expect(page).to have_selector("#blacklight-map[data-maxzoom='8']")
+        expect(page).to have_selector("#blacklight-geo[data-maxzoom='8']")
       end
 
       it "type should be placename_coord" do
-        expect(page).to have_selector("#blacklight-map[data-type='placename_coord']")
+        expect(page).to have_selector("#blacklight-geo[data-type='placename_coord']")
       end
 
       it "tileurl should be OSM" do
-        expect(page).to have_selector("#blacklight-map[data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png']")
+        expect(page).to have_selector("#blacklight-geo[data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png']")
       end
 
     end
@@ -86,12 +86,12 @@ describe "Map View", js: true do
     before do
       CatalogController.blacklight_config = Blacklight::Configuration.new
       CatalogController.configure_blacklight do |config|
-        config.view.maps.type = 'bbox'
-        config.view.maps.bbox_field = 'place_bbox'
+        config.view.geo.type = 'bbox'
+        config.view.geo.bbox_field = 'place_bbox'
       end
     end
 
-    before { visit catalog_index_path :q => 'korea', :view => 'maps' }
+    before { visit catalog_index_path :q => 'korea', :view => 'geo' }
 
     it "should have 4 markers" do
       expect(find("div.marker-cluster")).to have_content(4)

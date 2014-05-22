@@ -2,4 +2,4 @@ en:
   blacklight:
     search:
       view:
-        maps: "Map"
+        geo: "Geo"

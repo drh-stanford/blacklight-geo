@@ -1,9 +1,9 @@
-require "blacklight/maps/version"
+require "blacklight/geo/version"
 
 module Blacklight
   module Geo
-    require 'blacklight/maps/engine'
-    require 'blacklight/maps/export'
-    require 'blacklight/maps/geometry'
+    require 'blacklight/geo/engine'
+    require 'blacklight/geo/export'
+    require 'blacklight/geo/geometry'
   end
 end

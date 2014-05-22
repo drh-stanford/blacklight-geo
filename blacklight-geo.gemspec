@@ -1,15 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'blacklight/maps/version'
+require 'blacklight/geo/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "blacklight-geo"
   spec.version       = Blacklight::Geo::VERSION
-  spec.authors       = ["Chris Beer", "Jack Reed"]
-  spec.email         = ["cabeer@stanford.edu", "pjreed@stanford.edu"]
-  spec.summary       = %q{Geo for Blacklight}
-  spec.homepage      = ""
+  spec.authors       = ["Darren Hardy", "Jack Reed"]
+  spec.email         = ["drh@stanford.edu", "pjreed@stanford.edu"]
+  spec.summary       = %q{GeoBlacklight}
+  spec.homepage      = "http://github.com/sul-dlss/geoblacklight"
   spec.license       = "Apache 2.0"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -23,7 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency "leaflet-rails"
   spec.add_dependency "leaflet-markercluster-rails"
   spec.add_dependency "leaflet-sidebar-rails", "~> 0.0.2"
-
+  spec.add_dependency 'blacklight_range_limit'
+  spec.add_dependency 'font-awesome-sass'
+  spec.add_dependency 'httparty'
+  
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec-rails"

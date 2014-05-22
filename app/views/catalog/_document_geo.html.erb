@@ -1,6 +1,6 @@
 <% # container for all documents in map view -%>
 <div id="documents" class="map">
-  <%= blacklight_map_tag('blacklight-map') %>
-  <div id="blacklight-map-sidebar"></div>
-  <%= javascript_tag "$('#blacklight-map').blacklight_leaflet_map(#{serialize_geojson});" %>
+  <%= blacklight_geo_tag('blacklight-geo') %>
+  <div id="blacklight-geo-sidebar"></div>
+  <%= javascript_tag "$('#blacklight-geo').blacklight_leaflet_map(#{serialize_geojson});" %>
 </div>

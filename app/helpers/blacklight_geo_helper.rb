@@ -2,12 +2,12 @@
 module BlacklightGeoHelper
   # @param [String] id the html id
   # @param [Hash] tag_options options to put on the tag
-  def blacklight_map_tag id, tag_options = {}, &block
+  def blacklight_geo_tag id, tag_options = {}, &block
     default_data = {
-      maxzoom: blacklight_config.view.maps.maxzoom,
-      tileurl: blacklight_config.view.maps.tileurl,
-      type: blacklight_config.view.maps.type,
-      mapattribution: blacklight_config.view.maps.mapattribution
+      maxzoom: blacklight_config.view.geo.maxzoom,
+      tileurl: blacklight_config.view.geo.tileurl,
+      type: blacklight_config.view.geo.type,
+      mapattribution: blacklight_config.view.geo.mapattribution
     }
 
     options = {id: id, data: default_data}.deep_merge(tag_options)

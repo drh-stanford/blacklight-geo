@@ -26,7 +26,7 @@ end
 
 
 require 'blacklight'
-require 'blacklight/maps'
+require 'blacklight/geo'
 
 require 'rspec/rails'
 require 'rspec/autorun'

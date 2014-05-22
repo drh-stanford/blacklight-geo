@@ -24,7 +24,7 @@ module BlacklightGeo
     private
 
     def blacklight_geo_config
-      @controller.blacklight_config.view.maps
+      @controller.blacklight_config.view.geo
     end
 
     def type
@@ -87,7 +87,7 @@ module BlacklightGeo
 
     # Render to string the partial for each individual doc
     def render_leaflet_sidebar_partial(doc)
-      @controller.render_to_string partial: 'catalog/index_maps',
+      @controller.render_to_string partial: 'catalog/index_geo',
                                    locals: { document: SolrDocument.new(doc) }
     end
 

@@ -15,7 +15,7 @@ describe BlacklightGeoHelper do
   before :each do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
-      config.view.maps.type = 'placename_coord'
+      config.view.geo.type = 'placename_coord'
 
       # These fields also need to be added for some reason for the tests to pass
       # Link in list is not being generated correctly if not passed
@@ -29,21 +29,21 @@ describe BlacklightGeoHelper do
     helper.instance_variable_set(:@_controller, @catalog)
   end
 
-  describe "#blacklight_map_tag" do
+  describe "#blacklight_geo_tag" do
 
     context "with default values" do
-      subject { helper.blacklight_map_tag('blacklight-map') }
-      it { should have_selector "div#blacklight-map" }
+      subject { helper.blacklight_geo_tag('blacklight-geo') }
+      it { should have_selector "div#blacklight-geo" }
       it { should have_selector "div[data-maxzoom='8'][data-tileurl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'][data-mapattribution='Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>']" }
     end
 
     context "with custom values" do
-     subject { helper.blacklight_map_tag('blacklight-map', data: {maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
+     subject { helper.blacklight_geo_tag('blacklight-geo', data: {maxzoom: 6, tileurl: 'http://example.com/', mapattribution: 'hello world' }) }
      it { should have_selector "div[data-maxzoom='6'][data-tileurl='http://example.com/'][data-mapattribution='hello world']" }
     end
 
     context "when a block is provided" do
-      subject { helper.blacklight_map_tag('foo') { content_tag(:span, 'bar') } }
+      subject { helper.blacklight_geo_tag('foo') { content_tag(:span, 'bar') } }
       it { should have_selector('div > span', text: 'bar') }
     end
 
