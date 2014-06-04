@@ -8,7 +8,12 @@ module BlacklightGeo
     desc "Install Blacklight-Geo"
 
     def assets
-      copy_file "assets/stylesheets/blacklight_geo.css.scss", "app/assets/stylesheets/blacklight_geo.css.scss"
+      %w{
+        application.css
+        blacklight_geo.css.scss
+      }.each do |k|
+        copy_file "assets/stylesheets/#{k}", "app/assets/stylesheets/#{k}"
+      end
       %w{
         geologo.png
         src_berkeley.png
@@ -67,7 +72,7 @@ module BlacklightGeo
     end 
     
     def models
-      # XXX
+      copy_file "models/solr_document.rb", "app/models/solr_document.rb"
     end
     
     def views

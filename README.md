@@ -11,11 +11,16 @@ More coming soon!
 
 ## Installation
 
-Install [Blacklight](https://github.com/projectblacklight/blacklight/wiki/Quickstart)
+Install [Blacklight 5.1.0](https://github.com/projectblacklight/blacklight/wiki/Quickstart)
 
-Add this line to your application's Gemfile:
+Add this to your application's `Gemfile`:
 
-    gem 'blacklight-geo'
+    gem 'blacklight', "5.1.0"
+    gem 'blacklight-geo', :path => '../blacklight-geo'
+    gem 'blacklight_range_limit'
+    gem 'font-awesome-sass'
+    gem 'leaflet-rails'
+    gem 'httparty'
 
 And then execute:
 
@@ -29,9 +34,13 @@ Edit your Solr configuration to point to a [geoblacklight-schema](http://github.
 
     $ vi config/solr.yml
 
-Edit your development parameters to include:
+Edit your `config/environments/development.rb` parameters to include:
 
-      Rails.application.config.assets.precompile += %w( blacklight_geo/home.js blacklight_geo/mapResult.js blacklight_geo/mapView.js)
+      config.assets.precompile += %w( blacklight_geo/home.js blacklight_geo/mapResult.js blacklight_geo/mapView.js)
+
+Verify that routes are correct:
+
+    $ vi config/routes.rb
     
 Start the application:
 
@@ -66,3 +75,11 @@ Start the application:
 * Featured datasets and articles
 * FGDC-based conversion of external OGP records
 * MODS-based conversion for Stanford records
+
+* blacklight-geo
+  * search field is too short
+  * Time slider not enabled
+  * tool icons busted
+  * ...more link busted
+  * maps require reloads
+  * bounding box mouseovers busted
